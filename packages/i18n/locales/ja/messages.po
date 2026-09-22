@@ -4392,6 +4392,9 @@ msgstr "プロンプトを送信できませんでした。もう一度お試し
 msgid "Could not take a screenshot"
 msgstr "スクリーンショットを撮れませんでした"
 
+msgid "Could not update pin"
+msgstr "ピンを更新できませんでした"
+
 msgid "Could not update plugin"
 msgstr "プラグインを更新できませんでした"
 

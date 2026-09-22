@@ -1,3 +1,4 @@
+import { useLingui } from "@lingui/react/macro";
 import type { ChatTransport, SessionClient } from "@superset/chat/client";
 import { displayText } from "@superset/chat/core";
 import type { Item, UserContent } from "@superset/chat/protocol";
@@ -7,6 +8,7 @@ import {
 	useTimeline,
 } from "@superset/chat/react";
 import { Loader } from "@superset/ui/ai-elements/loader";
+import { toast } from "@superset/ui/sonner";
 import type { ReactNode } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePins } from "../../hooks/usePins";
@@ -62,6 +64,7 @@ export function SessionView({
 	const session = useChatSession({ client });
 	const timeline = useTimeline(session.snapshot);
 	const approvals = useApprovals(session.snapshot);
+	const { t } = useLingui();
 	const { pins, pinnedItemIds, addPin, removePin, renamePin } = usePins(
 		transport,
 		sessionId,
@@ -75,10 +78,14 @@ export function SessionView({
 		nonce: number;
 	} | null>(null);
 
+	const handlePinError = useCallback(() => {
+		toast.error(t({ message: "Could not update pin" }));
+	}, [t]);
+
 	const handleTogglePin = useCallback(
 		(item: Item) => {
 			if (pinnedItemIds.has(item.id)) {
-				void removePin(item.id);
+				removePin(item.id).catch(handlePinError);
 				return;
 			}
 			// displayText only resolves agent/reasoning text — user message text
@@ -91,9 +98,23 @@ export function SessionView({
 				fullText.length > MAX_SNAPSHOT_CHARS
 					? `${fullText.slice(0, MAX_SNAPSHOT_CHARS)}…`
 					: fullText;
-			void addPin(item.id, derivePinLabel(text), text);
+			addPin(item.id, derivePinLabel(text), text).catch(handlePinError);
 		},
-		[addPin, pinnedItemIds, removePin, session.snapshot],
+		[addPin, handlePinError, pinnedItemIds, removePin, session.snapshot],
+	);
+
+	const handleRenamePin = useCallback(
+		(itemId: string, label: string) => {
+			renamePin(itemId, label).catch(handlePinError);
+		},
+		[handlePinError, renamePin],
+	);
+
+	const handleUnpin = useCallback(
+		(itemId: string) => {
+			removePin(itemId).catch(handlePinError);
+		},
+		[handlePinError, removePin],
 	);
 
 	const handleQuote = useCallback((text: string) => {
@@ -140,8 +161,8 @@ export function SessionView({
 					<PinsPanel
 						onJump={handleJump}
 						onQuote={handleQuote}
-						onRename={(itemId, label) => void renamePin(itemId, label)}
-						onUnpin={(itemId) => void removePin(itemId)}
+						onRename={handleRenamePin}
+						onUnpin={handleUnpin}
 						pins={pins}
 					/>
 					<Transcript

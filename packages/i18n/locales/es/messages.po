@@ -4392,6 +4392,9 @@ msgstr "No se pudo enviar el prompt. Inténtalo de nuevo."
 msgid "Could not take a screenshot"
 msgstr "No se pudo hacer la captura"
 
+msgid "Could not update pin"
+msgstr "No se pudo actualizar la fijación"
+
 msgid "Could not update plugin"
 msgstr "No se pudo actualizar el plugin"
 
@@ -16084,7 +16087,7 @@ msgid "Unpin"
 msgstr "Desfijar"
 
 msgid "Unpin message"
-msgstr "Quitar fijación"
+msgstr "Desfijar mensaje"
 
 msgctxt "github release action"
 msgid "Unpublished"

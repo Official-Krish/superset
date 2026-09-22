@@ -4392,6 +4392,9 @@ msgstr "Не удалось отправить промпт. Повторите.
 msgid "Could not take a screenshot"
 msgstr "Не удалось сделать скриншот"
 
+msgid "Could not update pin"
+msgstr "Не удалось обновить закрепление"
+
 msgid "Could not update plugin"
 msgstr "Не удалось обновить плагин"
 
@@ -7719,7 +7722,7 @@ msgid "Inputs"
 msgstr "Поля ввода"
 
 msgid "Insert into prompt"
-msgstr "Вставить в запрос"
+msgstr "Вставить в промпт"
 
 msgid "Insights from the Superset team about parallel coding agents and developer productivity."
 msgstr "Мысли команды Superset о параллельных кодовых агентах и продуктивности разработчиков."

@@ -4392,6 +4392,9 @@ msgstr "Tidak bisa mengirim prompt. Coba lagi."
 msgid "Could not take a screenshot"
 msgstr "Tidak bisa mengambil tangkapan layar"
 
+msgid "Could not update pin"
+msgstr "Tidak dapat memperbarui sematan"
+
 msgid "Could not update plugin"
 msgstr "Tidak bisa memperbarui plugin"
 

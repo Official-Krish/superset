@@ -66,6 +66,7 @@ export function PinsPanel({
 									autoFocus
 									className="h-7 text-xs"
 									defaultValue={pin.label}
+									maxLength={120}
 									onChange={(event) => setDraftLabel(event.target.value)}
 									onKeyDown={(event) => {
 										if (event.key === "Enter") commitRename(pin.itemId);

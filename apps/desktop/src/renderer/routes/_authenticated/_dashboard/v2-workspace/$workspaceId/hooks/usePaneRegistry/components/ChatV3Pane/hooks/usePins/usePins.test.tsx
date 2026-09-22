@@ -101,4 +101,26 @@ describe("usePins", () => {
 		});
 		expect(calls).toHaveLength(0);
 	});
+
+	test("a failed mutation still refreshes and rethrows for the caller to surface", async () => {
+		const failure = new Error("boom");
+		const { calls, transport } = fakeTransport();
+		transport.addPin = async () => {
+			throw failure;
+		};
+		let hook!: ReturnType<typeof usePins>;
+		await act(async () => {
+			renderHook(() => {
+				hook = usePins(transport, "s-1");
+			});
+		});
+		await act(async () => {
+			await expect(hook.addPin("a#0", "Label", "snapshot")).rejects.toBe(
+				failure,
+			);
+		});
+		expect(
+			calls.filter((call) => call.name === "listPins").length,
+		).toBeGreaterThanOrEqual(2);
+	});
 });

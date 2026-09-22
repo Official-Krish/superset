@@ -4392,6 +4392,9 @@ msgstr "Nie udało się wysłać promptu. Spróbuj ponownie."
 msgid "Could not take a screenshot"
 msgstr "Nie udało się zrobić zrzutu ekranu"
 
+msgid "Could not update pin"
+msgstr "Nie można zaktualizować przypięcia"
+
 msgid "Could not update plugin"
 msgstr "Nie udało się zaktualizować wtyczki"
 

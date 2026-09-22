@@ -4392,6 +4392,9 @@ msgstr "Không thể gửi prompt. Hãy thử lại."
 msgid "Could not take a screenshot"
 msgstr "Không thể chụp màn hình"
 
+msgid "Could not update pin"
+msgstr "Không thể cập nhật ghim"
+
 msgid "Could not update plugin"
 msgstr "Không thể cập nhật plugin"
 

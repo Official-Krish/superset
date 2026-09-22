@@ -4392,6 +4392,9 @@ msgstr "Could not submit prompt. Try again."
 msgid "Could not take a screenshot"
 msgstr "Could not take a screenshot"
 
+msgid "Could not update pin"
+msgstr "Could not update pin"
+
 msgid "Could not update plugin"
 msgstr "Could not update plugin"
 

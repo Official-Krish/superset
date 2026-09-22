@@ -4392,6 +4392,9 @@ msgstr "Impossible de soumettre le prompt. Réessayez."
 msgid "Could not take a screenshot"
 msgstr "Impossible de prendre une capture d'écran"
 
+msgid "Could not update pin"
+msgstr "Impossible de mettre à jour l'épingle"
+
 msgid "Could not update plugin"
 msgstr "Impossible de mettre à jour le plugin"
 

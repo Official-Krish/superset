@@ -4392,6 +4392,9 @@ msgstr "İstem gönderilemedi. Yeniden deneyin."
 msgid "Could not take a screenshot"
 msgstr "Ekran görüntüsü alınamadı"
 
+msgid "Could not update pin"
+msgstr "Sabitleme güncellenemedi"
+
 msgid "Could not update plugin"
 msgstr "Eklenti güncellenemedi"
 

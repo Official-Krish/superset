@@ -4392,6 +4392,9 @@ msgstr "Não foi possível enviar o prompt. Tente novamente."
 msgid "Could not take a screenshot"
 msgstr "Não foi possível fazer a captura de tela"
 
+msgid "Could not update pin"
+msgstr "Não foi possível atualizar a fixação"
+
 msgid "Could not update plugin"
 msgstr "Não foi possível atualizar o plugin"
 

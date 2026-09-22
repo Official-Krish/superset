@@ -4392,6 +4392,9 @@ msgstr "Prompt konnte nicht eingereicht werden. Versuche es erneut."
 msgid "Could not take a screenshot"
 msgstr "Es konnte kein Screenshot erstellt werden"
 
+msgid "Could not update pin"
+msgstr "Pin konnte nicht aktualisiert werden"
+
 msgid "Could not update plugin"
 msgstr "Plugin konnte nicht aktualisiert werden"
 

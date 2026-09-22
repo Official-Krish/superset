@@ -4392,6 +4392,9 @@ msgstr "無法提交提示詞。請重試。"
 msgid "Could not take a screenshot"
 msgstr "無法截圖"
 
+msgid "Could not update pin"
+msgstr "無法更新置頂"
+
 msgid "Could not update plugin"
 msgstr "無法更新外掛"
 

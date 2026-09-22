@@ -4392,6 +4392,9 @@ msgstr "Prompt se nepodařilo odeslat. Zkuste to znovu."
 msgid "Could not take a screenshot"
 msgstr "Nepodařilo se pořídit snímek obrazovky"
 
+msgid "Could not update pin"
+msgstr "Připnutí se nepodařilo aktualizovat"
+
 msgid "Could not update plugin"
 msgstr "Plugin se nepodařilo aktualizovat"
 

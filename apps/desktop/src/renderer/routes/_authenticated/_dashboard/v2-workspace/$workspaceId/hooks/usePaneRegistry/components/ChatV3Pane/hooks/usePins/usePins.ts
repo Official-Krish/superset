@@ -50,8 +50,10 @@ export function usePins(
 				});
 			} catch (error) {
 				console.error("[pins] addPin failed:", error);
+				throw error;
+			} finally {
+				await refresh();
 			}
-			await refresh();
 		},
 		[transport, sessionId, refresh],
 	);
@@ -67,8 +69,10 @@ export function usePins(
 				});
 			} catch (error) {
 				console.error("[pins] removePin failed:", error);
+				throw error;
+			} finally {
+				await refresh();
 			}
-			await refresh();
 		},
 		[transport, sessionId, refresh],
 	);
@@ -85,8 +89,10 @@ export function usePins(
 				});
 			} catch (error) {
 				console.error("[pins] renamePin failed:", error);
+				throw error;
+			} finally {
+				await refresh();
 			}
-			await refresh();
 		},
 		[transport, sessionId, refresh],
 	);

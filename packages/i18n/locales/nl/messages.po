@@ -4392,6 +4392,9 @@ msgstr "Kan prompt niet insturen. Probeer het opnieuw."
 msgid "Could not take a screenshot"
 msgstr "Kan geen screenshot maken"
 
+msgid "Could not update pin"
+msgstr "Kon vastzetting niet bijwerken"
+
 msgid "Could not update plugin"
 msgstr "Kan plugin niet bijwerken"
 
@@ -16084,7 +16087,7 @@ msgid "Unpin"
 msgstr "Losmaken"
 
 msgid "Unpin message"
-msgstr "Vastzetten opheffen"
+msgstr "Bericht losmaken"
 
 msgctxt "github release action"
 msgid "Unpublished"
