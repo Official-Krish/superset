@@ -6491,7 +6491,7 @@ msgid "Failed to update avatar"
 msgstr "Échec de la mise à jour de l'avatar"
 
 msgid "Failed to update base ref fetch"
-msgstr "Échec de la mise à jour de la récupération de la branche de base"
+msgstr "Échec de la mise à jour du paramètre de récupération de la branche de base"
 
 msgid "Failed to update branch prefix"
 msgstr "Échec de la mise à jour du préfixe de branche"

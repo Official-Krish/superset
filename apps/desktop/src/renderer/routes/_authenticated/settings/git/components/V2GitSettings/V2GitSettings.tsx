@@ -304,6 +304,7 @@ export function V2GitSettings({ hostId }: V2GitSettingsProps) {
 					/>
 				</SettingsRow>
 				<SettingsRow
+					htmlFor="base-ref-fetch-enabled"
 					label={t({
 						message: "Fetch base branch in background",
 					})}
@@ -318,6 +319,7 @@ export function V2GitSettings({ hostId }: V2GitSettingsProps) {
 					}
 				>
 					<Switch
+						id="base-ref-fetch-enabled"
 						checked={baseRefFetchEnabled}
 						disabled={baseRefFetchDisabled}
 						onCheckedChange={(enabled) =>

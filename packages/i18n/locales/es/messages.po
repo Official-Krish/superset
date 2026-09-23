@@ -6491,7 +6491,7 @@ msgid "Failed to update avatar"
 msgstr "No se pudo actualizar el avatar"
 
 msgid "Failed to update base ref fetch"
-msgstr "No se pudo actualizar la obtención de la rama base"
+msgstr "No se pudo actualizar el ajuste de obtención de la rama base"
 
 msgid "Failed to update branch prefix"
 msgstr "No se pudo actualizar el prefijo de rama"
@@ -16187,7 +16187,7 @@ msgid "Update Superset on this machine to attach files"
 msgstr "Actualiza Superset en esta máquina para adjuntar archivos"
 
 msgid "update the base ref fetch setting"
-msgstr "actualizar la obtención de la rama base"
+msgstr "actualizar el ajuste de obtención de la rama base"
 
 msgid "update the branch prefix"
 msgstr "actualizar el prefijo de rama"

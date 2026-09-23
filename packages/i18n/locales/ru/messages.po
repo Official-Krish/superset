@@ -6491,7 +6491,7 @@ msgid "Failed to update avatar"
 msgstr "Не удалось обновить аватар"
 
 msgid "Failed to update base ref fetch"
-msgstr "Не удалось обновить получение базовой ветки"
+msgstr "Не удалось обновить настройку получения базовой ветки"
 
 msgid "Failed to update branch prefix"
 msgstr "Не удалось обновить префикс ветки"
@@ -16187,7 +16187,7 @@ msgid "Update Superset on this machine to attach files"
 msgstr "Обновите Superset на этой машине, чтобы прикреплять файлы"
 
 msgid "update the base ref fetch setting"
-msgstr "обновить получение базовой ветки"
+msgstr "обновить настройку получения базовой ветки"
 
 msgid "update the branch prefix"
 msgstr "обновить префикс ветки"

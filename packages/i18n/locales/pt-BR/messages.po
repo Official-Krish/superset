@@ -11925,7 +11925,7 @@ msgid "Refresh repositories"
 msgstr "Atualizar repositórios"
 
 msgid "Refresh the base branch from the remote so the Changes panel stays accurate. Each fetch can prompt for SSH approval. Turning this off never breaks the diff - after rebasing onto newer upstream, upstream commits may show as workspace changes until you fetch manually."
-msgstr "Atualiza a branch base do remoto para manter o painel Changes preciso. Cada busca pode solicitar aprovação SSH. Desativar nunca quebra o diff — após um rebase sobre um upstream mais novo, os commits do upstream podem aparecer como mudanças até uma busca manual."
+msgstr "Atualiza a branch base do remoto para manter o painel Changes preciso. Cada busca pode solicitar aprovação SSH. Desativar nunca quebra o diff — após um rebase sobre um upstream mais novo, os commits do upstream podem aparecer como alterações da área de trabalho até uma busca manual."
 
 msgid "Refreshes when Claude Code next runs."
 msgstr "Atualiza na próxima execução do Claude Code."

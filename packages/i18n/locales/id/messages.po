@@ -6491,7 +6491,7 @@ msgid "Failed to update avatar"
 msgstr "Gagal memperbarui avatar"
 
 msgid "Failed to update base ref fetch"
-msgstr "Gagal memperbarui pengambilan branch dasar"
+msgstr "Gagal memperbarui pengaturan pengambilan branch dasar"
 
 msgid "Failed to update branch prefix"
 msgstr "Gagal memperbarui prefix branch"
@@ -16187,7 +16187,7 @@ msgid "Update Superset on this machine to attach files"
 msgstr "Perbarui Superset di mesin ini untuk melampirkan file"
 
 msgid "update the base ref fetch setting"
-msgstr "memperbarui pengambilan branch dasar"
+msgstr "memperbarui pengaturan pengambilan branch dasar"
 
 msgid "update the branch prefix"
 msgstr "memperbarui prefix branch"
