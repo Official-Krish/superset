@@ -659,14 +659,12 @@ export function UsageView({
 								))}
 							</div>
 						)}
-						{agent === "ollama" &&
-							agentAccounts.length > 0 &&
-							agentAccounts.every((account) => account.status !== "ok") && (
-								<OllamaApiKeyForm
-									hostUrl={hostUrl}
-									onKeyChanged={() => quotaQuery.refetch()}
-								/>
-							)}
+						{agent === "ollama" && agentAccounts.length > 0 && (
+							<OllamaApiKeyForm
+								hostUrl={hostUrl}
+								onKeyChanged={() => quotaQuery.refetch()}
+							/>
+						)}
 					</section>
 				);
 			})}

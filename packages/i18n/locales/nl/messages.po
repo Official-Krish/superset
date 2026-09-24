@@ -6293,7 +6293,7 @@ msgid "Failed to remove member"
 msgstr "Verwijderen van lid mislukt"
 
 msgid "Failed to remove Ollama API key"
-msgstr "Kon Ollama API-sleutel niet verwijderen"
+msgstr "Kon de Ollama API-sleutel niet verwijderen"
 
 #. placeholder {0}: errorMessage(error, "Unknown error")
 msgid "Failed to remove PR link: {0}"
@@ -6380,7 +6380,7 @@ msgid "Failed to save installation. Please try again."
 msgstr "Opslaan van de installatie mislukt. Probeer het opnieuw."
 
 msgid "Failed to save Ollama API key"
-msgstr "Kon Ollama API-sleutel niet opslaan"
+msgstr "Kon de Ollama API-sleutel niet opslaan"
 
 msgid "Failed to save prompt"
 msgstr "Opslaan van prompt mislukt"

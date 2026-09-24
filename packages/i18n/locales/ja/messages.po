@@ -10946,7 +10946,7 @@ msgid "Paste"
 msgstr "貼り付け"
 
 msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
-msgstr "使用量を表示するにはOllama Cloud APIキーを貼り付けてください。キーはこのホストからのみ使用されます。"
+msgstr "使用量を表示するにはOllama Cloud APIキーを貼り付けてください。キーはこのホストに保存されます。"
 
 msgid "Paste this into Superset CLI:"
 msgstr "これをSuperset CLIに貼り付けてください:"
