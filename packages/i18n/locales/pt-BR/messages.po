@@ -6292,6 +6292,9 @@ msgstr "Falha ao remover"
 msgid "Failed to remove member"
 msgstr "Falha ao remover o membro"
 
+msgid "Failed to remove Ollama API key"
+msgstr "Falha ao remover a chave API da Ollama"
+
 #. placeholder {0}: errorMessage(error, "Unknown error")
 msgid "Failed to remove PR link: {0}"
 msgstr "Falha ao remover o vínculo do PR: {0}"
@@ -6375,6 +6378,9 @@ msgstr "Falha ao salvar"
 
 msgid "Failed to save installation. Please try again."
 msgstr "Falha ao salvar a instalação. Tente novamente."
+
+msgid "Failed to save Ollama API key"
+msgstr "Falha ao salvar a chave API da Ollama"
 
 msgid "Failed to save prompt"
 msgstr "Falha ao salvar o prompt"
@@ -10067,6 +10073,12 @@ msgstr "Modo offline / local-first"
 msgid "Older"
 msgstr "Mais antigo"
 
+msgid "Ollama Cloud API key"
+msgstr "Chave API da Ollama Cloud"
+
+msgid "Ollama Cloud API key saved on this host."
+msgstr "Chave API da Ollama Cloud salva neste host."
+
 msgid "on {offScopeHostName} — won't run here"
 msgstr "em {offScopeHostName} — não vai rodar aqui"
 
@@ -10932,6 +10944,9 @@ msgstr "Última semana"
 
 msgid "Paste"
 msgstr "Colar"
+
+msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
+msgstr "Cole uma chave API da Ollama Cloud para mostrar o uso aqui. A chave permanece neste host."
 
 msgid "Paste this into Superset CLI:"
 msgstr "Cole isto na CLI do Superset:"

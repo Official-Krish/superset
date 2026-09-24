@@ -6292,6 +6292,9 @@ msgstr "移除失敗"
 msgid "Failed to remove member"
 msgstr "移除成員失敗"
 
+msgid "Failed to remove Ollama API key"
+msgstr "刪除 Ollama API 金鑰失敗"
+
 #. placeholder {0}: errorMessage(error, "Unknown error")
 msgid "Failed to remove PR link: {0}"
 msgstr "移除PR連結失敗：{0}"
@@ -6375,6 +6378,9 @@ msgstr "儲存失敗"
 
 msgid "Failed to save installation. Please try again."
 msgstr "儲存安裝資訊失敗。請重試。"
+
+msgid "Failed to save Ollama API key"
+msgstr "儲存 Ollama API 金鑰失敗"
 
 msgid "Failed to save prompt"
 msgstr "儲存提示詞失敗"
@@ -10067,6 +10073,12 @@ msgstr "離線/本地優先模式"
 msgid "Older"
 msgstr "更早"
 
+msgid "Ollama Cloud API key"
+msgstr "Ollama Cloud API 金鑰"
+
+msgid "Ollama Cloud API key saved on this host."
+msgstr "Ollama Cloud API 金鑰已儲存在此主機上。"
+
 msgid "on {offScopeHostName} — won't run here"
 msgstr "在{offScopeHostName}上，不會在這裡執行"
 
@@ -10932,6 +10944,9 @@ msgstr "過去一週"
 
 msgid "Paste"
 msgstr "貼上"
+
+msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
+msgstr "貼上 Ollama Cloud API 金鑰以在此顯示用量。金鑰僅保留在此主機上。"
 
 msgid "Paste this into Superset CLI:"
 msgstr "把它貼上到Superset CLI："
