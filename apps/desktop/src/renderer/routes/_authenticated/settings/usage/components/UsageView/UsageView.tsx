@@ -158,8 +158,10 @@ function AccountCard({
 	const { t } = useLingui();
 	const credits = creditsLine(account);
 	const { copyToClipboard, copied } = useCopyToClipboard();
+	// Ollama rotates via the Settings key form below, not a terminal
+	// command — the card shows a translated instruction instead.
 	const expiredCommand =
-		account.status === "token_expired"
+		account.status === "token_expired" && account.agent !== "ollama"
 			? isManagedAgent(account.agent)
 				? switchSignInCommand(account as UsageAccount & { agent: ManagedAgent })
 				: READ_ONLY_LOGIN_COMMANDS[account.agent]
@@ -324,7 +326,11 @@ function AccountCard({
 				</div>
 			) : (
 				<div className="mt-1.5 text-[11px] text-muted-foreground">
-					{account.statusDetail ?? <Trans>Usage unavailable.</Trans>}
+					{account.agent === "ollama" && account.status === "token_expired" ? (
+						<Trans>Ollama Cloud API key rejected — enter a new key below.</Trans>
+					) : (
+						account.statusDetail ?? <Trans>Usage unavailable.</Trans>
+					)}
 				</div>
 			)}
 			{/* The radio + accent border already mark the default when the cards

@@ -2941,6 +2941,9 @@ msgstr "Цепочка рассуждений"
 msgid "Change avatar"
 msgstr "Сменить аватар"
 
+msgid "Change key"
+msgstr "Сменить ключ"
+
 msgid "Change location"
 msgstr "Изменить расположение"
 
@@ -5754,6 +5757,9 @@ msgstr "Нравится Superset?"
 
 msgid "Ensure no regression"
 msgstr "Убедись, что нет регрессии"
+
+msgid "Enter a new Ollama Cloud API key to replace the saved one."
+msgstr "Введите новый ключ API Ollama Cloud, чтобы заменить сохранённый."
 
 msgid "Enter a parent directory on {hostName}"
 msgstr "Введите родительскую папку на {hostName}"
@@ -10076,6 +10082,9 @@ msgstr "Ранее"
 msgid "Ollama Cloud API key"
 msgstr "API-ключ Ollama Cloud"
 
+msgid "Ollama Cloud API key rejected — enter a new key below."
+msgstr "Ключ API Ollama Cloud отклонён — введите новый ключ ниже."
+
 msgid "Ollama Cloud API key saved on this host."
 msgstr "API-ключ Ollama Cloud сохранён на этом хосте."
 
@@ -10945,8 +10954,8 @@ msgstr "За неделю"
 msgid "Paste"
 msgstr "Вставить"
 
-msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
-msgstr "Вставьте API-ключ Ollama Cloud, чтобы показать использование здесь. Ключ остаётся на этом хосте."
+msgid "Paste an Ollama Cloud API key to show usage here. The key is stored on this host and sent to Ollama Cloud to fetch usage."
+msgstr "Вставьте ключ API Ollama Cloud, чтобы показать использование. Ключ хранится на этом хосте и отправляется в Ollama Cloud для получения данных об использовании."
 
 msgid "Paste this into Superset CLI:"
 msgstr "Вставьте это в Superset CLI:"

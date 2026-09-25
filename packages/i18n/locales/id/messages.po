@@ -2941,6 +2941,9 @@ msgstr "Rantai Pemikiran"
 msgid "Change avatar"
 msgstr "Ganti avatar"
 
+msgid "Change key"
+msgstr "Ubah kunci"
+
 msgid "Change location"
 msgstr "Ubah lokasi"
 
@@ -5754,6 +5757,9 @@ msgstr "Menikmati Superset?"
 
 msgid "Ensure no regression"
 msgstr "Pastikan tidak ada regresi"
+
+msgid "Enter a new Ollama Cloud API key to replace the saved one."
+msgstr "Masukkan kunci API Ollama Cloud baru untuk menggantikan yang tersimpan."
 
 msgid "Enter a parent directory on {hostName}"
 msgstr "Masukkan direktori induk di {hostName}"
@@ -10076,6 +10082,9 @@ msgstr "Lebih lama"
 msgid "Ollama Cloud API key"
 msgstr "Kunci API Ollama Cloud"
 
+msgid "Ollama Cloud API key rejected — enter a new key below."
+msgstr "Kunci API Ollama Cloud ditolak — masukkan kunci baru di bawah."
+
 msgid "Ollama Cloud API key saved on this host."
 msgstr "Kunci API Ollama Cloud tersimpan di host ini."
 
@@ -10945,8 +10954,8 @@ msgstr "Seminggu terakhir"
 msgid "Paste"
 msgstr "Tempel"
 
-msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
-msgstr "Tempel kunci API Ollama Cloud untuk menampilkan penggunaan di sini. Kunci tetap di host ini."
+msgid "Paste an Ollama Cloud API key to show usage here. The key is stored on this host and sent to Ollama Cloud to fetch usage."
+msgstr "Tempel kunci API Ollama Cloud untuk menampilkan penggunaan di sini. Kunci disimpan di host ini dan dikirim ke Ollama Cloud untuk mengambil data penggunaan."
 
 msgid "Paste this into Superset CLI:"
 msgstr "Tempel ini ke Superset CLI:"

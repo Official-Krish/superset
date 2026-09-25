@@ -2941,6 +2941,9 @@ msgstr "Řetězec úvah"
 msgid "Change avatar"
 msgstr "Změnit avatar"
 
+msgid "Change key"
+msgstr "Změnit klíč"
+
 msgid "Change location"
 msgstr "Změnit umístění"
 
@@ -5754,6 +5757,9 @@ msgstr "Líbí se vám Superset?"
 
 msgid "Ensure no regression"
 msgstr "Zajisti žádnou regresi"
+
+msgid "Enter a new Ollama Cloud API key to replace the saved one."
+msgstr "Zadejte nový klíč API Ollama Cloud, který nahradí uložený klíč."
 
 msgid "Enter a parent directory on {hostName}"
 msgstr "Zadejte nadřazený adresář na {hostName}"
@@ -10076,6 +10082,9 @@ msgstr "Starší"
 msgid "Ollama Cloud API key"
 msgstr "Klíč API Ollama Cloud"
 
+msgid "Ollama Cloud API key rejected — enter a new key below."
+msgstr "Klíč API Ollama Cloud byl odmítnut — zadejte níže nový klíč."
+
 msgid "Ollama Cloud API key saved on this host."
 msgstr "Klíč API Ollama Cloud je uložen na tomto hostiteli."
 
@@ -10945,8 +10954,8 @@ msgstr "Poslední týden"
 msgid "Paste"
 msgstr "Vložit"
 
-msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
-msgstr "Vložením klíče API Ollama Cloud zde zobrazíte využití. Klíč zůstane na tomto hostiteli."
+msgid "Paste an Ollama Cloud API key to show usage here. The key is stored on this host and sent to Ollama Cloud to fetch usage."
+msgstr "Vložte klíč API Ollama Cloud pro zobrazení využití. Klíč je uložen na tomto hostiteli a odesílán do Ollama Cloud za účelem načtení využití."
 
 msgid "Paste this into Superset CLI:"
 msgstr "Vložte to do Superset CLI:"

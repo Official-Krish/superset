@@ -2941,6 +2941,9 @@ msgstr "Chuỗi suy luận"
 msgid "Change avatar"
 msgstr "Đổi ảnh đại diện"
 
+msgid "Change key"
+msgstr "Đổi khóa"
+
 msgid "Change location"
 msgstr "Đổi vị trí"
 
@@ -5754,6 +5757,9 @@ msgstr "Thích Superset chứ?"
 
 msgid "Ensure no regression"
 msgstr "Đảm bảo không có hồi quy"
+
+msgid "Enter a new Ollama Cloud API key to replace the saved one."
+msgstr "Nhập khóa API Ollama Cloud mới để thay thế khóa đã lưu."
 
 msgid "Enter a parent directory on {hostName}"
 msgstr "Hãy nhập một thư mục cha trên {hostName}"
@@ -10076,6 +10082,9 @@ msgstr "Cũ hơn"
 msgid "Ollama Cloud API key"
 msgstr "Khóa API Ollama Cloud"
 
+msgid "Ollama Cloud API key rejected — enter a new key below."
+msgstr "Khóa API Ollama Cloud bị từ chối — nhập khóa mới bên dưới."
+
 msgid "Ollama Cloud API key saved on this host."
 msgstr "Khóa API Ollama Cloud đã được lưu trên máy chủ này."
 
@@ -10945,8 +10954,8 @@ msgstr "Tuần qua"
 msgid "Paste"
 msgstr "Dán"
 
-msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
-msgstr "Dán khóa API Ollama Cloud để hiển thị mức sử dụng tại đây. Khóa chỉ lưu trên máy chủ này."
+msgid "Paste an Ollama Cloud API key to show usage here. The key is stored on this host and sent to Ollama Cloud to fetch usage."
+msgstr "Dán khóa API Ollama Cloud để hiển thị mức sử dụng tại đây. Khóa được lưu trên máy này và gửi tới Ollama Cloud để lấy dữ liệu sử dụng."
 
 msgid "Paste this into Superset CLI:"
 msgstr "Dán mã này vào Superset CLI:"

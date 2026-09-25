@@ -2941,6 +2941,9 @@ msgstr "思维链"
 msgid "Change avatar"
 msgstr "更换头像"
 
+msgid "Change key"
+msgstr "更换密钥"
+
 msgid "Change location"
 msgstr "更改位置"
 
@@ -5754,6 +5757,9 @@ msgstr "用得还顺手吗？"
 
 msgid "Ensure no regression"
 msgstr "确保没有回归"
+
+msgid "Enter a new Ollama Cloud API key to replace the saved one."
+msgstr "输入新的 Ollama Cloud API 密钥以替换已保存的密钥。"
 
 msgid "Enter a parent directory on {hostName}"
 msgstr "请输入{hostName}上的父目录"
@@ -10076,6 +10082,9 @@ msgstr "更早"
 msgid "Ollama Cloud API key"
 msgstr "Ollama Cloud API 密钥"
 
+msgid "Ollama Cloud API key rejected — enter a new key below."
+msgstr "Ollama Cloud API 密钥被拒绝 — 请在下方输入新密钥。"
+
 msgid "Ollama Cloud API key saved on this host."
 msgstr "Ollama Cloud API 密钥已保存在此主机上。"
 
@@ -10945,8 +10954,8 @@ msgstr "过去一周"
 msgid "Paste"
 msgstr "粘贴"
 
-msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
-msgstr "粘贴 Ollama Cloud API 密钥以在此处显示用量。密钥仅保存在此主机上。"
+msgid "Paste an Ollama Cloud API key to show usage here. The key is stored on this host and sent to Ollama Cloud to fetch usage."
+msgstr "粘贴 Ollama Cloud API 密钥以在此处显示用量。该密钥存储在此主机上，并会发送到 Ollama Cloud 以获取用量。"
 
 msgid "Paste this into Superset CLI:"
 msgstr "把它粘贴到Superset CLI："

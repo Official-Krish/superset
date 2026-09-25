@@ -2941,6 +2941,9 @@ msgstr "思考プロセス"
 msgid "Change avatar"
 msgstr "アバターを変更"
 
+msgid "Change key"
+msgstr "キーを変更"
+
 msgid "Change location"
 msgstr "場所を変更"
 
@@ -5754,6 +5757,9 @@ msgstr "Supersetを気に入っていただけましたか?"
 
 msgid "Ensure no regression"
 msgstr "デグレがないことを確認して"
+
+msgid "Enter a new Ollama Cloud API key to replace the saved one."
+msgstr "保存済みのキーと置き換える新しいOllama Cloud APIキーを入力してください。"
 
 msgid "Enter a parent directory on {hostName}"
 msgstr "{hostName}の親ディレクトリを入力してください"
@@ -10076,6 +10082,9 @@ msgstr "それ以前"
 msgid "Ollama Cloud API key"
 msgstr "Ollama Cloud APIキー"
 
+msgid "Ollama Cloud API key rejected — enter a new key below."
+msgstr "Ollama Cloud APIキーが拒否されました — 以下に新しいキーを入力してください。"
+
 msgid "Ollama Cloud API key saved on this host."
 msgstr "Ollama Cloud APIキーはこのホストに保存されています。"
 
@@ -10945,8 +10954,8 @@ msgstr "過去1週間"
 msgid "Paste"
 msgstr "貼り付け"
 
-msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
-msgstr "使用量を表示するにはOllama Cloud APIキーを貼り付けてください。キーはこのホストに保存されます。"
+msgid "Paste an Ollama Cloud API key to show usage here. The key is stored on this host and sent to Ollama Cloud to fetch usage."
+msgstr "使用状況を表示するには、Ollama Cloud APIキーを貼り付けてください。キーはこのホストに保存され、使用状況の取得のためにOllama Cloudに送信されます。"
 
 msgid "Paste this into Superset CLI:"
 msgstr "これをSuperset CLIに貼り付けてください:"

@@ -114,8 +114,8 @@ export function OllamaApiKeyForm({
 					<Trans>Enter a new Ollama Cloud API key to replace the saved one.</Trans>
 				) : (
 					<Trans>
-						Paste an Ollama Cloud API key to show usage here. The key stays
-						on this host.
+						Paste an Ollama Cloud API key to show usage here. The key is stored
+						on this host and sent to Ollama Cloud to fetch usage.
 					</Trans>
 				)}
 			</p>

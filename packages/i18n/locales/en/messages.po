@@ -2941,6 +2941,9 @@ msgstr "Chain of Thought"
 msgid "Change avatar"
 msgstr "Change avatar"
 
+msgid "Change key"
+msgstr "Change key"
+
 msgid "Change location"
 msgstr "Change location"
 
@@ -5754,6 +5757,9 @@ msgstr "Enjoying Superset?"
 
 msgid "Ensure no regression"
 msgstr "Ensure no regression"
+
+msgid "Enter a new Ollama Cloud API key to replace the saved one."
+msgstr "Enter a new Ollama Cloud API key to replace the saved one."
 
 msgid "Enter a parent directory on {hostName}"
 msgstr "Enter a parent directory on {hostName}"
@@ -10076,6 +10082,9 @@ msgstr "Older"
 msgid "Ollama Cloud API key"
 msgstr "Ollama Cloud API key"
 
+msgid "Ollama Cloud API key rejected — enter a new key below."
+msgstr "Ollama Cloud API key rejected — enter a new key below."
+
 msgid "Ollama Cloud API key saved on this host."
 msgstr "Ollama Cloud API key saved on this host."
 
@@ -10945,8 +10954,8 @@ msgstr "Past week"
 msgid "Paste"
 msgstr "Paste"
 
-msgid "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
-msgstr "Paste an Ollama Cloud API key to show usage here. The key stays on this host."
+msgid "Paste an Ollama Cloud API key to show usage here. The key is stored on this host and sent to Ollama Cloud to fetch usage."
+msgstr "Paste an Ollama Cloud API key to show usage here. The key is stored on this host and sent to Ollama Cloud to fetch usage."
 
 msgid "Paste this into Superset CLI:"
 msgstr "Paste this into Superset CLI:"
