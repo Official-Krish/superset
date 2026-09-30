@@ -749,9 +749,10 @@ export const createSettingsRouter = () => {
 		setShowTrayIcon: publicProcedure
 			.input(z.object({ enabled: z.boolean() }))
 			.mutation(({ input }) => {
+				const { id } = getSettings();
 				localDb
 					.insert(settings)
-					.values({ id: 1, showTrayIcon: input.enabled })
+					.values({ id, showTrayIcon: input.enabled })
 					.onConflictDoUpdate({
 						target: settings.id,
 						set: { showTrayIcon: input.enabled },
