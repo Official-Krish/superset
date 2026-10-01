@@ -2827,6 +2827,9 @@ msgstr "Prefix větve"
 msgid "Branch Prefix"
 msgstr "Předpona větve"
 
+msgid "Branch recreated from remote \"{branch}\""
+msgstr "Větev znovu vytvořena ze vzdáleného repozitáře „{branch}“."
+
 msgid "Branch renamed to {newName}"
 msgstr "Větev přejmenována na {newName}"
 
@@ -5370,6 +5373,10 @@ msgctxt "github release action"
 msgid "Deleted"
 msgstr "Smazáno"
 
+#. placeholder {0}: formatCompactRelativeTime(archivedAt, now)
+msgid "Deleted · {0}"
+msgstr "Smazáno · {0}"
+
 msgid "Deleted \"{deletedName}\""
 msgstr "„{deletedName}“ smazán"
 
@@ -6705,6 +6712,10 @@ msgstr "Nepodařilo se restartovat démona"
 
 msgid "Failed to restore"
 msgstr "Obnovení se nezdařilo"
+
+#. placeholder {0}: errorMessage( error, t({ message: "Unknown error" }), )
+msgid "Failed to restore \"{workspaceName}\": {0}"
+msgstr "Obnovení „{workspaceName}“ se nezdařilo: {0}"
 
 msgid "Failed to restore defaults"
 msgstr "Nepodařilo se obnovit výchozí nastavení"
@@ -12997,6 +13008,12 @@ msgstr "obnovit výchozí nastavení agenta"
 msgid "Restore this version?"
 msgstr "Obnovit tuto verzi?"
 
+msgid "Restore workspace"
+msgstr "Obnovit pracovní prostor"
+
+msgid "Restore workspace \"{workspaceName}\"?"
+msgstr "Obnovit pracovní prostor „{workspaceName}“?"
+
 msgid "Restored"
 msgstr "Obnoveno"
 
@@ -16148,6 +16165,9 @@ msgstr "Tento pull request už není dostupný."
 msgid "This pull request link is invalid."
 msgstr "Tento odkaz na pull request je neplatný."
 
+msgid "This re-creates the worktree from branch \"{branch}\". Only committed or pushed work comes back — uncommitted changes are gone, and a branch deleted both locally and on the remote cannot be restored."
+msgstr "Tím se znovu vytvoří pracovní strom z větve „{branch}“. Vrátí se pouze potvrzená nebo odeslaná práce — nepotvrzené změny jsou pryč a větev smazanou lokálně i na vzdáleném repozitáři obnovit nelze."
+
 msgid "This removes every selected worktree from disk and deletes its workspace record."
 msgstr "Tímto se z disku odstraní každý vybraný worktree a smaže se záznam jeho pracovního prostoru."
 
@@ -17137,6 +17157,9 @@ msgstr "Zobrazit vše"
 msgid "View comment by {0}"
 msgstr "Zobrazit komentář od {0}"
 
+msgid "View deleted workspaces"
+msgstr "Zobrazit smazané pracovní prostory"
+
 msgid "View file"
 msgstr "Zobrazit soubor"
 
@@ -17590,6 +17613,9 @@ msgstr "pracovní prostor"
 
 msgid "Workspace"
 msgstr "Pracovní prostor"
+
+msgid "Workspace \"{workspaceName}\" restored"
+msgstr "Pracovní prostor „{workspaceName}“ obnoven"
 
 msgid "Workspace accent-color picker"
 msgstr "Výběr akcentní barvy pracovního prostoru"

@@ -2,10 +2,11 @@ import { existsSync, lstatSync, statSync } from "node:fs";
 import { rm } from "node:fs/promises";
 import { sanitizePromptForPty } from "@superset/shared/agent-prompt-launch";
 import { TRPCError } from "@trpc/server";
-import { eq, isNull } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
 import { pullRequests, workspaces } from "../../../db/schema";
 import { invalidateLabelCache } from "../../../ports/static-ports";
+import { resolveRef } from "../../../runtime/git/refs";
 import { coercePullRequestState } from "../../../runtime/pull-requests/utils/pull-request-mappers";
 import {
 	removeDevAppProfile,
@@ -17,6 +18,7 @@ import type { HostServiceContext } from "../../../types";
 import type { GitTaskEnv } from "../../../workers/tasks/git";
 import {
 	archiveLocalWorkspace,
+	getLocalWorkspace,
 	trackWorkspaceDeleted,
 	unarchiveLocalWorkspace,
 } from "../../../workspaces/local-workspace-store";
@@ -27,7 +29,15 @@ import type {
 } from "../../error-types";
 import { protectedProcedure, router } from "../../index";
 import { getHostWorktreeBaseDir } from "../settings/worktree-location";
+import {
+	requireLocalProject,
+	requireProjectRepoPath,
+} from "../workspace-creation/shared/local-project";
 import { isInsideSessionsRoot } from "../workspace-creation/shared/session-paths";
+import {
+	addWorktreeWithSparseCheckout,
+	parseSparseCheckoutPaths,
+} from "../workspace-creation/shared/sparse-checkout";
 import { isInsideProjectWorktreesRoot } from "../workspace-creation/shared/worktree-paths";
 import { cleanupGitOps, isIndeterminateGitTaskFailure } from "./git-ops";
 import { isLocalCheckoutWorkspace } from "./is-local-checkout-workspace";
@@ -221,7 +231,183 @@ export const workspaceCleanupRouter = router({
 				teardownMode: input.skipTeardown ? "skip" : "blocking",
 			}),
 		),
+
+	/**
+	 * Restore an archived (deleted) worktree workspace: re-create the
+	 * worktree from its branch, then clear the tombstone. Only committed
+	 * or pushed work comes back — uncommitted changes died with the
+	 * worktree, and a branch deleted locally *and* on the remote is gone
+	 * for good (typed BRANCH_GONE below).
+	 *
+	 * Typed errors for the renderer:
+	 *   - NOT_FOUND        → row missing, not archived, or branch gone
+	 *                        everywhere (`data.restoreBranchGone`).
+	 *   - CONFLICT         → a live workspace already owns the branch or
+	 *                        the path.
+	 *   - PRECONDITION_FAILED → worktree checkout failed after the branch
+	 *                        resolved (disk or git state).
+	 */
+	restore: protectedProcedure
+		.input(z.object({ workspaceId: z.string() }))
+		.mutation(async ({ ctx, input }) =>
+			restoreWorkspace(ctx, { workspaceId: input.workspaceId }),
+		),
 });
+
+export interface RestoreWorkspaceResult {
+	workspaceId: string;
+	worktreePath: string;
+	/** Where the branch was found: existing local branch, remote, or the
+	 * checkout never left disk (type "local" shares the project checkout). */
+	restoredFrom: "local-branch" | "remote" | "already-on-disk";
+}
+
+export async function restoreWorkspace(
+	ctx: HostServiceContext,
+	input: { workspaceId: string },
+): Promise<RestoreWorkspaceResult> {
+	const row = getLocalWorkspace(ctx.db, input.workspaceId);
+	if (!row || row.archivedAt == null) {
+		throw new TRPCError({
+			code: "NOT_FOUND",
+			message: "Workspace not found or not archived",
+		});
+	}
+	if (row.type !== "worktree") {
+		// Type "local" shares the project checkout — destroy never removed
+		// files, so there is no worktree to rebuild. Project-less session
+		// workspaces need a projectId to resolve a repo from; without one
+		// their standalone repo died with the worktree.
+		if (!row.projectId) {
+			throw new TRPCError({
+				code: "PRECONDITION_FAILED",
+				message: "Project-less workspaces cannot be restored",
+			});
+		}
+		unarchiveLocalWorkspace(storeContext(ctx), row.id);
+		return {
+			workspaceId: row.id,
+			worktreePath: row.worktreePath,
+			restoredFrom: "already-on-disk",
+		};
+	}
+	if (!row.projectId) {
+		throw new TRPCError({
+			code: "PRECONDITION_FAILED",
+			message: "Project-less workspaces cannot be restored",
+		});
+	}
+
+	const liveBranchOwner = ctx.db.query.workspaces
+		.findFirst({
+			where: and(
+				eq(workspaces.projectId, row.projectId),
+				eq(workspaces.branch, row.branch),
+				isNull(workspaces.archivedAt),
+			),
+		})
+		.sync();
+	if (liveBranchOwner && liveBranchOwner.id !== row.id) {
+		throw new TRPCError({
+			code: "CONFLICT",
+			message: `Branch "${row.branch}" is already owned by a live workspace`,
+		});
+	}
+	const livePathOwner = ctx.db.query.workspaces
+		.findFirst({
+			where: and(
+				eq(workspaces.worktreePath, row.worktreePath),
+				isNull(workspaces.archivedAt),
+			),
+		})
+		.sync();
+	if (livePathOwner && livePathOwner.id !== row.id) {
+		throw new TRPCError({
+			code: "CONFLICT",
+			message: "Another live workspace already owns this worktree path",
+		});
+	}
+
+	// Throws when the project is missing or soft-deleted.
+	const localProject = requireLocalProject(ctx, row.projectId);
+	const repoPath = requireProjectRepoPath(localProject);
+	const git = await ctx.git(repoPath);
+
+	// Prune registrations whose dirs are gone, mirroring create — without
+	// this a stale registration makes `git worktree add` refuse the branch.
+	await git
+		.raw(["worktree", "prune"])
+		.catch((err) =>
+			console.warn("[workspace.restore] worktree prune failed:", err),
+		);
+
+	let resolved = await resolveRef(git, row.branch);
+	if (!resolved || resolved.kind === "head" || resolved.kind === "tag") {
+		// The local branch is gone (deleteLocalBranch at destroy, or manual
+		// cleanup) — one best-effort fetch before declaring it dead. A
+		// stale remote-tracking ref must not win here: creation documents
+		// why local-first matters, and resolveRef re-checks after fetch.
+		await git
+			.fetch(["origin", row.branch, "--quiet", "--no-tags"])
+			.catch((err) =>
+				console.warn("[workspace.restore] refresh fetch failed:", err),
+			);
+		resolved = await resolveRef(git, row.branch);
+	}
+	if (!resolved || resolved.kind === "head" || resolved.kind === "tag") {
+		throw new TRPCError({
+			code: "NOT_FOUND",
+			message: `Branch "${row.branch}" no longer exists locally or on the remote`,
+			cause: { kind: "RESTORE_BRANCH_GONE", branch: row.branch },
+		});
+	}
+
+	if (existsSync(row.worktreePath)) {
+		throw new TRPCError({
+			code: "PRECONDITION_FAILED",
+			message: `Worktree path "${row.worktreePath}" already exists on disk`,
+		});
+	}
+
+	const restoredFrom = resolved.kind === "local" ? "local-branch" : "remote";
+	try {
+		await addWorktreeWithSparseCheckout({
+			git,
+			worktreeArgs:
+				resolved.kind === "remote-tracking"
+					? [
+							"--track",
+							"-b",
+							resolved.shortName,
+							row.worktreePath,
+							resolved.remoteShortName,
+						]
+					: [row.worktreePath, resolved.shortName],
+			worktreePath: row.worktreePath,
+			sparsePaths: parseSparseCheckoutPaths(localProject.sparseCheckoutPaths),
+			logPrefix: "[workspace.restore]",
+		});
+	} catch (err) {
+		throw new TRPCError({
+			code: "PRECONDITION_FAILED",
+			message: `Could not check out branch "${row.branch}": ${err instanceof Error ? err.message : String(err ?? "")}`,
+		});
+	}
+
+	unarchiveLocalWorkspace(storeContext(ctx), row.id);
+	return { workspaceId: row.id, worktreePath: row.worktreePath, restoredFrom };
+}
+
+function storeContext(ctx: HostServiceContext) {
+	return {
+		db: ctx.db,
+		eventBus: ctx.eventBus,
+		api: ctx.api,
+		organizationId: ctx.organizationId,
+		clientMachineId: ctx.clientMachineId,
+		userId: ctx.userId,
+	};
+}
 
 export async function destroyWorkspace(
 	ctx: HostServiceContext,

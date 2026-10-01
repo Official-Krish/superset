@@ -2827,6 +2827,9 @@ msgstr "Branch prefix"
 msgid "Branch Prefix"
 msgstr "Branch Prefix"
 
+msgid "Branch recreated from remote \"{branch}\""
+msgstr "Branch recreated from remote \"{branch}\""
+
 msgid "Branch renamed to {newName}"
 msgstr "Branch renamed to {newName}"
 
@@ -5370,6 +5373,10 @@ msgctxt "github release action"
 msgid "Deleted"
 msgstr "Deleted"
 
+#. placeholder {0}: formatCompactRelativeTime(archivedAt, now)
+msgid "Deleted · {0}"
+msgstr "Deleted · {0}"
+
 msgid "Deleted \"{deletedName}\""
 msgstr "Deleted \"{deletedName}\""
 
@@ -6705,6 +6712,10 @@ msgstr "Failed to restart daemon"
 
 msgid "Failed to restore"
 msgstr "Failed to restore"
+
+#. placeholder {0}: errorMessage( error, t({ message: "Unknown error" }), )
+msgid "Failed to restore \"{workspaceName}\": {0}"
+msgstr "Failed to restore \"{workspaceName}\": {0}"
 
 msgid "Failed to restore defaults"
 msgstr "Failed to restore defaults"
@@ -12997,6 +13008,12 @@ msgstr "restore the agent defaults"
 msgid "Restore this version?"
 msgstr "Restore this version?"
 
+msgid "Restore workspace"
+msgstr "Restore workspace"
+
+msgid "Restore workspace \"{workspaceName}\"?"
+msgstr "Restore workspace \"{workspaceName}\"?"
+
 msgid "Restored"
 msgstr "Restored"
 
@@ -16148,6 +16165,9 @@ msgstr "This pull request is no longer available."
 msgid "This pull request link is invalid."
 msgstr "This pull request link is invalid."
 
+msgid "This re-creates the worktree from branch \"{branch}\". Only committed or pushed work comes back — uncommitted changes are gone, and a branch deleted both locally and on the remote cannot be restored."
+msgstr "This re-creates the worktree from branch \"{branch}\". Only committed or pushed work comes back — uncommitted changes are gone, and a branch deleted both locally and on the remote cannot be restored."
+
 msgid "This removes every selected worktree from disk and deletes its workspace record."
 msgstr "This removes every selected worktree from disk and deletes its workspace record."
 
@@ -17137,6 +17157,9 @@ msgstr "View All"
 msgid "View comment by {0}"
 msgstr "View comment by {0}"
 
+msgid "View deleted workspaces"
+msgstr "View deleted workspaces"
+
 msgid "View file"
 msgstr "View file"
 
@@ -17590,6 +17613,9 @@ msgstr "workspace"
 
 msgid "Workspace"
 msgstr "Workspace"
+
+msgid "Workspace \"{workspaceName}\" restored"
+msgstr "Workspace \"{workspaceName}\" restored"
 
 msgid "Workspace accent-color picker"
 msgstr "Workspace accent-color picker"
