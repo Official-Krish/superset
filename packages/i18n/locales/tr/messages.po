@@ -2828,7 +2828,7 @@ msgid "Branch Prefix"
 msgstr "Dal öneki"
 
 msgid "Branch recreated from remote \"{branch}\""
-msgstr "Dal, “{branch}” uzak deposundan yeniden oluşturuldu."
+msgstr "Dal, “{branch}” uzak dalından yeniden oluşturuldu."
 
 msgid "Branch renamed to {newName}"
 msgstr "Dal {newName} olarak yeniden adlandırıldı"
@@ -16166,7 +16166,7 @@ msgid "This pull request link is invalid."
 msgstr "Bu pull request bağlantısı geçersiz."
 
 msgid "This re-creates the worktree from branch \"{branch}\". Only committed or pushed work comes back — uncommitted changes are gone, and a branch deleted both locally and on the remote cannot be restored."
-msgstr "Bu işlem, çalışma ağacını “{branch}” dalından yeniden oluşturur. Yalnızca işlenen veya gönderilen çalışmalar geri gelir — işlenmemiş değişiklikler kaybolur ve hem yerelde hem uzak depoda silinen bir dal geri yüklenemez."
+msgstr "Bu işlem, worktree'yi “{branch}” dalından yeniden oluşturur. Yalnızca commit'lenmiş veya push edilmiş çalışmalar geri gelir — commit'lenmemiş değişiklikler kaybolur ve hem yerelde hem uzak depoda silinen bir dal geri yüklenemez."
 
 msgid "This removes every selected worktree from disk and deletes its workspace record."
 msgstr "Bu işlem, seçili her worktree'yi diskten kaldırır ve çalışma alanı kaydını siler."

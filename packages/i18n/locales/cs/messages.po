@@ -2828,7 +2828,7 @@ msgid "Branch Prefix"
 msgstr "Předpona větve"
 
 msgid "Branch recreated from remote \"{branch}\""
-msgstr "Větev znovu vytvořena ze vzdáleného repozitáře „{branch}“."
+msgstr "Větev znovu vytvořena ze vzdálené větve „{branch}“."
 
 msgid "Branch renamed to {newName}"
 msgstr "Větev přejmenována na {newName}"
@@ -16166,7 +16166,7 @@ msgid "This pull request link is invalid."
 msgstr "Tento odkaz na pull request je neplatný."
 
 msgid "This re-creates the worktree from branch \"{branch}\". Only committed or pushed work comes back — uncommitted changes are gone, and a branch deleted both locally and on the remote cannot be restored."
-msgstr "Tím se znovu vytvoří pracovní strom z větve „{branch}“. Vrátí se pouze potvrzená nebo odeslaná práce — nepotvrzené změny jsou pryč a větev smazanou lokálně i na vzdáleném repozitáři obnovit nelze."
+msgstr "Tím se znovu vytvoří worktree z větve „{branch}“. Vrátí se pouze commitnutá nebo odeslaná práce — necommitnuté změny jsou pryč a větev smazanou lokálně i na vzdáleném repozitáři obnovit nelze."
 
 msgid "This removes every selected worktree from disk and deletes its workspace record."
 msgstr "Tímto se z disku odstraní každý vybraný worktree a smaže se záznam jeho pracovního prostoru."

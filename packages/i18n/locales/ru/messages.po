@@ -2828,7 +2828,7 @@ msgid "Branch Prefix"
 msgstr "Префикс ветки"
 
 msgid "Branch recreated from remote \"{branch}\""
-msgstr "Ветка воссоздана из удалённого репозитория «{branch}»."
+msgstr "Ветка воссоздана из удалённой ветки «{branch}»."
 
 msgid "Branch renamed to {newName}"
 msgstr "Ветка переименована в {newName}"
@@ -16166,7 +16166,7 @@ msgid "This pull request link is invalid."
 msgstr "Эта ссылка на пул-реквест недействительна."
 
 msgid "This re-creates the worktree from branch \"{branch}\". Only committed or pushed work comes back — uncommitted changes are gone, and a branch deleted both locally and on the remote cannot be restored."
-msgstr "Рабочее дерево будет пересоздано из ветки «{branch}». Вернётся только закоммиченная или отправленная работа — незакоммиченные изменения потеряны, а ветку, удалённую и локально, и на удалённом репозитории, восстановить нельзя."
+msgstr "Worktree будет пересоздан из ветки «{branch}». Вернётся только закоммиченная или отправленная работа — незакоммиченные изменения потеряны, а ветку, удалённую и локально, и на удалённом репозитории, восстановить нельзя."
 
 msgid "This removes every selected worktree from disk and deletes its workspace record."
 msgstr "Это удалит каждый выбранный worktree с диска и сотрёт запись о его рабочей области."

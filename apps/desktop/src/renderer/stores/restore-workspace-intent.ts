@@ -1,9 +1,13 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 export interface RestoreWorkspaceTarget {
 	workspaceId: string;
 	workspaceName: string;
 	branch: string;
+	/** Owning host's machine id — archived rows are absent from the live
+	 * lists the host lookup reads, so the target rides along instead. */
+	hostId: string | null;
 }
 
 /**
@@ -20,20 +24,23 @@ interface RestoreWorkspaceIntentState {
 	close: (workspaceId: string) => void;
 }
 
-export const useRestoreWorkspaceIntent = create<RestoreWorkspaceIntentState>(
-	(set) => ({
-		target: null,
-		open: false,
-		request: (target) => set({ target, open: true }),
-		setOpen: (workspaceId, open) =>
-			set((state) =>
-				state.target?.workspaceId === workspaceId ? { open } : state,
-			),
-		close: (workspaceId) =>
-			set((state) =>
-				state.target?.workspaceId === workspaceId
-					? { target: null, open: false }
-					: state,
-			),
-	}),
+export const useRestoreWorkspaceIntent = create<RestoreWorkspaceIntentState>()(
+	devtools(
+		(set) => ({
+			target: null,
+			open: false,
+			request: (target) => set({ target, open: true }),
+			setOpen: (workspaceId, open) =>
+				set((state) =>
+					state.target?.workspaceId === workspaceId ? { open } : state,
+				),
+			close: (workspaceId) =>
+				set((state) =>
+					state.target?.workspaceId === workspaceId
+						? { target: null, open: false }
+						: state,
+				),
+		}),
+		{ name: "RestoreWorkspaceIntent" },
+	),
 );

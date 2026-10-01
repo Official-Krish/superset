@@ -106,8 +106,11 @@ function V2WorkspaceLayout() {
 	const unarchive = useUnarchiveCloudWorkspace();
 	// Local tombstones never reach the host lists above, so a deleted local
 	// workspace would fall through to "not found". The accessible rows
-	// include tombstones — find this one to render the restore screen.
-	const { all: accessibleWorkspaces } = useAccessibleV2Workspaces();
+	// include tombstones only with includeArchived — find this one to render
+	// the restore screen.
+	const { all: accessibleWorkspaces } = useAccessibleV2Workspaces({
+		includeArchived: true,
+	});
 	const archivedLocalWorkspace =
 		!workspace && !cloudWorkspace && workspaceId != null
 			? (accessibleWorkspaces.find(
@@ -194,6 +197,7 @@ function V2WorkspaceLayout() {
 							workspaceName:
 								archivedLocalWorkspace.name || archivedLocalWorkspace.branch,
 							branch: archivedLocalWorkspace.branch,
+							hostId: archivedLocalWorkspace.hostId,
 						})
 					}
 				/>

@@ -13009,10 +13009,10 @@ msgid "Restore this version?"
 msgstr "Diese Version wiederherstellen?"
 
 msgid "Restore workspace"
-msgstr "Workspace wiederherstellen"
+msgstr "Arbeitsbereich wiederherstellen"
 
 msgid "Restore workspace \"{workspaceName}\"?"
-msgstr "„{workspaceName}“ wiederherstellen?"
+msgstr "Arbeitsbereich „{workspaceName}“ wiederherstellen?"
 
 msgid "Restored"
 msgstr "Wiederhergestellt"
@@ -17158,7 +17158,7 @@ msgid "View comment by {0}"
 msgstr "Kommentar von {0} ansehen"
 
 msgid "View deleted workspaces"
-msgstr "Gelöschte Workspaces anzeigen"
+msgstr "Gelöschte Arbeitsbereiche anzeigen"
 
 msgid "View file"
 msgstr "Datei ansehen"
@@ -17615,7 +17615,7 @@ msgid "Workspace"
 msgstr "Arbeitsbereich"
 
 msgid "Workspace \"{workspaceName}\" restored"
-msgstr "Workspace „{workspaceName}“ wiederhergestellt"
+msgstr "Arbeitsbereich „{workspaceName}“ wiederhergestellt"
 
 msgid "Workspace accent-color picker"
 msgstr "Auswahl der Akzentfarbe eines Arbeitsbereichs"

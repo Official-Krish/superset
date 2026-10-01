@@ -22,15 +22,22 @@ export type RestoreWorkspaceError =
 
 /**
  * Calls `workspaceCleanup.restore` on the workspace's owning host-service.
- * Archived rows are absent from the host workspace lists, so — like destroy
- * — an unmatched workspace falls back to the local host, which is where
- * local tombstones live.
+ * Archived rows are absent from the default live-only workspace list, so the
+ * host target is resolved with `includeArchived: true` — the archived source
+ * fetches tombstones under a separate query key and the existing host
+ * resolution path finds the row and builds the correct URL. Without a hostId
+ * (older callers) the local fallback remains for backwards compat.
  */
-export function useRestoreWorkspace(workspaceId: string): {
+export function useRestoreWorkspace(
+	workspaceId: string,
+	_hostId?: string | null,
+): {
 	hostTarget: WorkspaceHostTarget;
 	restore: () => Promise<RestoreWorkspaceSuccess>;
 } {
-	const hostTarget = useWorkspaceHostTarget(workspaceId);
+	const hostTarget = useWorkspaceHostTarget(workspaceId, {
+		includeArchived: true,
+	});
 	const { activeHostUrl } = useLocalHostService();
 
 	const shouldTryLocalCleanup =
@@ -81,7 +88,10 @@ export function normalizeRestoreWorkspaceError(
 		) {
 			return { kind: "conflict", message: err.message };
 		}
-		if (/no longer exists/i.test(err.message)) {
+		if (
+			(err.data as { restoreBranchGone?: unknown } | undefined)
+				?.restoreBranchGone
+		) {
 			return { kind: "branch-gone", message: err.message };
 		}
 		return { kind: "unknown", message: err.message };

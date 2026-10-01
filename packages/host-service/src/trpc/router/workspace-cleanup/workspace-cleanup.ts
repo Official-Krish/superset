@@ -19,6 +19,7 @@ import type { GitTaskEnv } from "../../../workers/tasks/git";
 import {
 	archiveLocalWorkspace,
 	getLocalWorkspace,
+	type HostWorkspaceRow,
 	trackWorkspaceDeleted,
 	unarchiveLocalWorkspace,
 } from "../../../workspaces/local-workspace-store";
@@ -44,19 +45,20 @@ import { isLocalCheckoutWorkspace } from "./is-local-checkout-workspace";
 import { removeDirectoryTree } from "./remove-directory-tree";
 
 /**
- * Process-local guard against concurrent destroys of the same workspace.
- * A second caller observes the live entry and gets a typed CONFLICT (with
- * `DELETE_IN_PROGRESS` cause) so the renderer can render a toast instead
- * of mistaking it for a dirty-worktree race and silently force-retrying.
+ * Process-local guard against concurrent destroy/restore operations on the
+ * same workspace. A second caller observes the live entry and gets a typed
+ * CONFLICT so the renderer can render a toast instead of racing the first
+ * operation (a restore recreating the worktree while a destroy removes it,
+ * or vice versa).
  *
- * Doesn't survive a host-service crash mid-delete — but neither does the
- * destroy itself, and the saga is idempotent enough that a second attempt
- * after restart is safe.
+ * Doesn't survive a host-service crash mid-operation — but neither do the
+ * operations themselves, and both sagas are idempotent enough that a
+ * second attempt after restart is safe.
  */
-const destroysInFlight = new Set<string>();
+const workspaceOperationsInFlight = new Set<string>();
 
 /** @internal — exposed for tests to introspect / clear the guard. */
-export const __testDestroysInFlight = destroysInFlight;
+export const __testDestroysInFlight = workspaceOperationsInFlight;
 
 export interface DestroyWorkspaceInput {
 	workspaceId: string;
@@ -273,17 +275,41 @@ export async function restoreWorkspace(
 			message: "Workspace not found or not archived",
 		});
 	}
+	if (workspaceOperationsInFlight.has(row.id)) {
+		throw new TRPCError({
+			code: "CONFLICT",
+			message: "Another operation is already in progress for this workspace",
+		});
+	}
+	workspaceOperationsInFlight.add(row.id);
+	try {
+		return await runRestore(ctx, row);
+	} finally {
+		workspaceOperationsInFlight.delete(row.id);
+	}
+}
+
+async function runRestore(
+	ctx: HostServiceContext,
+	row: HostWorkspaceRow,
+): Promise<RestoreWorkspaceResult> {
 	if (row.type !== "worktree") {
 		// Type "local" shares the project checkout — destroy never removed
 		// files, so there is no worktree to rebuild. Project-less session
 		// workspaces need a projectId to resolve a repo from; without one
-		// their standalone repo died with the worktree.
+		// their standalone repo died with the worktree. The project and repo
+		// checks still run: a removed project or checkout must not
+		// un-archive into a broken row. Branch/path ownership is N/A here —
+		// every local row of the project shares the same checkout and branch
+		// tracking, so those predicates would false-positive.
 		if (!row.projectId) {
 			throw new TRPCError({
 				code: "PRECONDITION_FAILED",
 				message: "Project-less workspaces cannot be restored",
 			});
 		}
+		const localProject = requireLocalProject(ctx, row.projectId);
+		requireProjectRepoPath(localProject);
 		unarchiveLocalWorkspace(storeContext(ctx), row.id);
 		return {
 			workspaceId: row.id,
@@ -332,6 +358,14 @@ export async function restoreWorkspace(
 	const localProject = requireLocalProject(ctx, row.projectId);
 	const repoPath = requireProjectRepoPath(localProject);
 	const git = await ctx.git(repoPath);
+	try {
+		await git.raw(["rev-parse", "--git-dir"]);
+	} catch {
+		throw new TRPCError({
+			code: "PRECONDITION_FAILED",
+			message: `Project directory "${repoPath}" is no longer a git repository`,
+		});
+	}
 
 	// Prune registrations whose dirs are gone, mirroring create — without
 	// this a stale registration makes `git worktree add` refuse the branch.
@@ -341,23 +375,24 @@ export async function restoreWorkspace(
 			console.warn("[workspace.restore] worktree prune failed:", err),
 		);
 
+	// Local branch wins without network (creation's local-first rationale:
+	// a stale remote-tracking ref must never shadow live local state). Any
+	// other outcome re-resolves per configured remote after a best-effort
+	// fetch, so a pruned-away or advanced `origin/<branch>` can't check out
+	// a dead commit, and branches tracked on non-origin remotes resolve on
+	// the remote that actually has them.
 	let resolved = await resolveRef(git, row.branch);
-	if (!resolved || resolved.kind === "head" || resolved.kind === "tag") {
-		// The local branch is gone (deleteLocalBranch at destroy, or manual
-		// cleanup) — one best-effort fetch before declaring it dead. A
-		// stale remote-tracking ref must not win here: creation documents
-		// why local-first matters, and resolveRef re-checks after fetch.
-		await git
-			.fetch(["origin", row.branch, "--quiet", "--no-tags"])
-			.catch((err) =>
-				console.warn("[workspace.restore] refresh fetch failed:", err),
-			);
-		resolved = await resolveRef(git, row.branch);
+	if (!resolved || resolved.kind !== "local") {
+		resolved = await resolveRestoredBranch(
+			git,
+			row.branch,
+			localProject.remoteName?.trim() || undefined,
+		);
 	}
 	if (!resolved || resolved.kind === "head" || resolved.kind === "tag") {
 		throw new TRPCError({
 			code: "NOT_FOUND",
-			message: `Branch "${row.branch}" no longer exists locally or on the remote`,
+			message: `Branch "${row.branch}" no longer exists locally or on any configured remote`,
 			cause: { kind: "RESTORE_BRANCH_GONE", branch: row.branch },
 		});
 	}
@@ -398,6 +433,70 @@ export async function restoreWorkspace(
 	return { workspaceId: row.id, worktreePath: row.worktreePath, restoredFrom };
 }
 
+/**
+ * Find a deleted branch on the remotes, origin first. Every candidate is
+ * verified with `ls-remote` and re-resolved only after a successful refresh
+ * fetch: a failed refresh leaves the ref unverified, so a stale
+ * `origin/<branch>` tracking ref can never check out a dead commit.
+ * Branches tracked on non-origin remotes resolve on the remote that
+ * actually has them.
+ * Returns the remote-tracking ref, or null when no remote has the branch.
+ */
+async function resolveRestoredBranch(
+	git: Awaited<ReturnType<HostServiceContext["git"]>>,
+	branch: string,
+	primaryRemote?: string,
+): Promise<Awaited<ReturnType<typeof resolveRef>>> {
+	let remotes: string[];
+	try {
+		const listed = await git.getRemotes();
+		remotes = listed
+			.map((remote) => (typeof remote === "string" ? remote : remote.name))
+			.filter((name) => name.length > 0);
+	} catch {
+		remotes = [];
+	}
+	const primary = primaryRemote?.length ? primaryRemote : "origin";
+	remotes = [primary, ...remotes.filter((name) => name !== primary)];
+	for (const remote of remotes) {
+		// Strip a leading "<remote>/" prefix so a branch stored as
+		// "origin/foo" (e.g. from an older CLI) is looked up as "foo" on
+		// the remote — ls-remote matches against refs/heads/<pattern>, so
+		// "origin/foo" would look for refs/heads/origin/foo and never match.
+		const remotePrefix = `${remote}/`;
+		const remoteBranch = branch.startsWith(remotePrefix)
+			? branch.slice(remotePrefix.length)
+			: branch;
+		let onRemote = false;
+		try {
+			const out = await git.raw(["ls-remote", "--heads", remote, remoteBranch]);
+			onRemote = out.trim().length > 0;
+		} catch {
+			onRemote = false;
+		}
+		if (!onRemote) continue;
+		// --prune drops tracking refs the remote already deleted, matching
+		// the picker's refresh behavior.
+		let refreshed = false;
+		try {
+			await git.fetch([
+				remote,
+				remoteBranch,
+				"--quiet",
+				"--no-tags",
+				"--prune",
+			]);
+			refreshed = true;
+		} catch (err) {
+			console.warn("[workspace.restore] refresh fetch failed:", err);
+		}
+		if (!refreshed) continue;
+		const resolved = await resolveRef(git, branch, { remote });
+		if (resolved?.kind === "remote-tracking") return resolved;
+	}
+	return null;
+}
+
 function storeContext(ctx: HostServiceContext) {
 	return {
 		db: ctx.db,
@@ -413,18 +512,18 @@ export async function destroyWorkspace(
 	ctx: HostServiceContext,
 	input: DestroyWorkspaceInput,
 ) {
-	if (destroysInFlight.has(input.workspaceId)) {
+	if (workspaceOperationsInFlight.has(input.workspaceId)) {
 		throw new TRPCError({
 			code: "CONFLICT",
 			message: "Deletion already in progress for this workspace",
 			cause: { kind: "DELETE_IN_PROGRESS" } satisfies DeleteInProgressCause,
 		});
 	}
-	destroysInFlight.add(input.workspaceId);
+	workspaceOperationsInFlight.add(input.workspaceId);
 	try {
 		return await runDestroy(ctx, input);
 	} finally {
-		destroysInFlight.delete(input.workspaceId);
+		workspaceOperationsInFlight.delete(input.workspaceId);
 	}
 }
 

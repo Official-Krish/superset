@@ -20,6 +20,7 @@ export function RestoreWorkspaceMount() {
 			workspaceId={workspaceId}
 			workspaceName={target.workspaceName}
 			branch={target.branch}
+			hostId={target.hostId}
 			open={open}
 			onOpenChange={(next) => setOpen(workspaceId, next)}
 			onRestored={() => close(workspaceId)}

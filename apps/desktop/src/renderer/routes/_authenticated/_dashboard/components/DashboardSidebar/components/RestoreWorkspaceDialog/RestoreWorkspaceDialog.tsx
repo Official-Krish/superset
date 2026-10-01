@@ -18,6 +18,7 @@ interface RestoreWorkspaceDialogProps {
 	workspaceId: string;
 	workspaceName: string;
 	branch: string;
+	hostId: string | null;
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
 	onRestored?: () => void;
@@ -32,12 +33,13 @@ export function RestoreWorkspaceDialog({
 	workspaceId,
 	workspaceName,
 	branch,
+	hostId,
 	open,
 	onOpenChange,
 	onRestored,
 }: RestoreWorkspaceDialogProps) {
 	const { t } = useLingui();
-	const { restore } = useRestoreWorkspace(workspaceId);
+	const { restore } = useRestoreWorkspace(workspaceId, hostId);
 	const [isRunning, setIsRunning] = useState(false);
 
 	const handleConfirm = async () => {
@@ -94,7 +96,16 @@ export function RestoreWorkspaceDialog({
 					<AlertDialogCancel disabled={isRunning}>
 						<Trans>Cancel</Trans>
 					</AlertDialogCancel>
-					<AlertDialogAction onClick={handleConfirm} disabled={isRunning}>
+					<AlertDialogAction
+						onClick={(event) => {
+							// The action closes the dialog on click by default —
+							// hold it open through the run so the Restoring state
+							// is visible and failures stay retryable in place.
+							event.preventDefault();
+							void handleConfirm();
+						}}
+						disabled={isRunning}
+					>
 						{isRunning ? <Trans>Restoring…</Trans> : <Trans>Restore</Trans>}
 					</AlertDialogAction>
 				</AlertDialogFooter>

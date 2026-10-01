@@ -2828,7 +2828,7 @@ msgid "Branch Prefix"
 msgstr "Prefixo de branch"
 
 msgid "Branch recreated from remote \"{branch}\""
-msgstr "Branch recriado a partir do remoto “{branch}”."
+msgstr "Branch recriada a partir do remoto “{branch}”."
 
 msgid "Branch renamed to {newName}"
 msgstr "Branch renomeada para {newName}"
@@ -16166,7 +16166,7 @@ msgid "This pull request link is invalid."
 msgstr "Este link de pull request é inválido."
 
 msgid "This re-creates the worktree from branch \"{branch}\". Only committed or pushed work comes back — uncommitted changes are gone, and a branch deleted both locally and on the remote cannot be restored."
-msgstr "Isso recria a árvore de trabalho a partir do branch “{branch}”. Só volta o trabalho com commit ou push — alterações sem commit são perdidas, e um branch excluído tanto localmente quanto no remoto não pode ser restaurado."
+msgstr "Isso recria a árvore de trabalho a partir da branch “{branch}”. Só volta o trabalho com commit ou push — alterações sem commit são perdidas, e uma branch excluída tanto localmente quanto no remoto não pode ser restaurada."
 
 msgid "This removes every selected worktree from disk and deletes its workspace record."
 msgstr "Isso remove do disco todas as worktrees selecionadas e exclui o registro de cada área de trabalho."

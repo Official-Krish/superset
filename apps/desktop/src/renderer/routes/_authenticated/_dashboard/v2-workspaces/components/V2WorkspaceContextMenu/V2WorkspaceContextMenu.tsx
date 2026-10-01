@@ -142,8 +142,9 @@ export function V2WorkspaceContextMenu({
 			workspaceId: workspace.id,
 			workspaceName: workspace.name || workspace.branch,
 			branch: workspace.branch,
+			hostId: workspace.hostId,
 		});
-	}, [workspace.id, workspace.name, workspace.branch]);
+	}, [workspace.id, workspace.name, workspace.branch, workspace.hostId]);
 
 	return (
 		<ContextMenu>
@@ -180,7 +181,7 @@ export function V2WorkspaceContextMenu({
 					</ContextMenuItem>
 				)}
 				<ContextMenuSeparator />
-				{workspace.archivedAt != null && (
+				{workspace.archivedAt != null && workspace.projectId != null && (
 					<ContextMenuItem onSelect={openRestoreDialog}>
 						<LuHistory className="size-4" />
 						<Trans>Restore</Trans>
